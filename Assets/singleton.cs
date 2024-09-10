@@ -10,12 +10,11 @@ public class singleton : MonoBehaviour
         if (owning_object == null)
         {
             owning_object = this;
+            DontDestroyOnLoad(this);
         }
         else if (owning_object != this)
         {
             Destroy(this);
         }
-
-        DontDestroyOnLoad(this);
     }
 }
