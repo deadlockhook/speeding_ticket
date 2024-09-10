@@ -12,11 +12,6 @@ public class game_state_mgr : MonoBehaviour
     }
     void Update()
     {
-        if (keystate_mgr.check_key_state(KeyCode.A, key_query_mode.kq_singlepress))
-            SceneManager.LoadScene(1);
-        else if (keystate_mgr.check_key_state(KeyCode.D, key_query_mode.kq_singlepress))
-            SceneManager.LoadScene(0);
-
 
     }
 }
