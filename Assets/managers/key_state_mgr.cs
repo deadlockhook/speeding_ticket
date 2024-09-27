@@ -10,7 +10,7 @@ public enum key_query_mode
     kq_ontoggle
 }
 
-public class key_state_mgr : MonoBehaviour
+public class KeyStateManager : MonoBehaviour
 {
     // Start is called before the first frame update
     const int max_keys = (int)KeyCode.Joystick8Button19 + 1;
@@ -25,7 +25,7 @@ public class key_state_mgr : MonoBehaviour
         single_press_state = new bool[max_keys];
     }
 
-    public bool check_key_state(KeyCode code, key_query_mode mode = key_query_mode.kq_onhotkey)
+    public bool CheckKeyState(KeyCode code, key_query_mode mode = key_query_mode.kq_onhotkey)
     {
         if ((int)code >= max_keys)
         {
