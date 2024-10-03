@@ -8,6 +8,7 @@ public class gui : MonoBehaviour
 {
 
     [SerializeField] KeyStateManager keyStateManager = null;
+    [SerializeField] SharedVariables sharedVariables = null;
 
     [SerializeField] GameObject menuBackgroundImageObject = null;
     [SerializeField] GameObject mainMenuScreenObject = null;

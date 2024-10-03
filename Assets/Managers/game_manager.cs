@@ -50,8 +50,10 @@ public class game_manager : MonoBehaviour
     {
         Application.Quit();
     }
+    /*
     private void OnGUI()
     {
+        
         GUI.Label(new Rect(10, 10, 200, 30), "currentLevel: " + SceneManager.GetActiveScene().name);
         GUI.Label(new Rect(10, 40, 200, 30), "gameManagerCount: " + gameManagerCount);
         GUI.Label(new Rect(10, 70, 200, 30), "playerHealth: " + playerHealth);
@@ -90,7 +92,7 @@ public class game_manager : MonoBehaviour
         {
             LoadGlobalGameSaveData();
         }
-    }
+    }*/
 
     public void SaveGlobalGameSaveData()
     {
@@ -140,6 +142,7 @@ public class game_manager : MonoBehaviour
     }
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Alpha1))
             SceneManager.LoadScene(0);
 
@@ -151,6 +154,6 @@ public class game_manager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
             SceneManager.LoadScene(3);
-
+        */
     }
 }
