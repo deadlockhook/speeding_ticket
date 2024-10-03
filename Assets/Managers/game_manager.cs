@@ -45,6 +45,11 @@ public class game_manager : MonoBehaviour
 
         keyStateMgr = gameObject.GetComponent<KeyStateManager>();
     }
+
+    public void ExitApp()
+    {
+        Application.Quit();
+    }
     private void OnGUI()
     {
         GUI.Label(new Rect(10, 10, 200, 30), "currentLevel: " + SceneManager.GetActiveScene().name);

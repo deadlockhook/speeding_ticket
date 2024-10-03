@@ -2,56 +2,80 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Device;
+using UnityEngine.SceneManagement;
 
 public class gui : MonoBehaviour
 {
-    // Start is called before the first frame update
 
-    [SerializeField]
-    GameObject main_ui_object = null;
+    [SerializeField] KeyStateManager keyStateManager = null;
 
-    [SerializeField] GameObject main_menu_screen_object = null;
-    [SerializeField] GameObject options_screen_object = null;
-    [SerializeField] GameObject ingame_overlay_screen_object = null;
-    [SerializeField] GameObject game_win_screen_object = null;
-    [SerializeField] GameObject upgrades_screen_object = null;
-    enum screen_index : int
+    [SerializeField] GameObject menuBackgroundImageObject = null;
+    [SerializeField] GameObject mainMenuScreenObject = null;
+    [SerializeField] GameObject optionsScreenObject = null;
+    [SerializeField] GameObject ingameOverlayScreenObject = null;
+    [SerializeField] GameObject gameWinScreenObject = null;
+    [SerializeField] GameObject upgradesScreenObject = null;
+    [SerializeField] GameObject pauseScreenObject = null;
+    public enum ScreenIndex : int
     {
-        inactive = 0,
-        main_menu,
-        options_screen,
-        ingame_overlay,
-        game_win,
-        upgdrades,
-        max_screens
+        Inactive = 0,
+        MainMenu,
+        Options,
+        Overlay,
+        GameWin,
+        Upgrades,
+        Pause,
+        MaxScreens
     }
 
+    private ScreenIndex currentScreen;
 
-    GameObject[] screen_objects;
+    GameObject[] screenObjects;
 
     void Start()
     {
-        screen_objects = new GameObject[(int)screen_index.max_screens];
+        screenObjects = new GameObject[(int)ScreenIndex.MaxScreens];
 
-        screen_objects[(int)screen_index.main_menu] = main_menu_screen_object;
-        screen_objects[(int)screen_index.options_screen] = options_screen_object;
-        screen_objects[(int)screen_index.ingame_overlay] = ingame_overlay_screen_object;
-        screen_objects[(int)screen_index.game_win] = game_win_screen_object;
-        screen_objects[(int)screen_index.upgdrades] = upgrades_screen_object;
+        screenObjects[(int)ScreenIndex.MainMenu] = mainMenuScreenObject;
+        screenObjects[(int)ScreenIndex.Options] = optionsScreenObject;
+        screenObjects[(int)ScreenIndex.Overlay] = ingameOverlayScreenObject;
+        screenObjects[(int)ScreenIndex.GameWin] = gameWinScreenObject;
+        screenObjects[(int)ScreenIndex.Upgrades] = upgradesScreenObject;
+        screenObjects[(int)ScreenIndex.Pause] = pauseScreenObject;
 
+        SwitchScreen(ScreenIndex.MainMenu, true);
     }
 
-    void switch_screen(screen_index new_index)
+    public void SwitchScreen(ScreenIndex new_index, bool bg_active)
     {
-        for (int current = (int)screen_index.main_menu;current < (int)screen_index.max_screens;current++)
+        currentScreen = new_index;
+        menuBackgroundImageObject.SetActive(bg_active);
+
+        for (int current = (int)ScreenIndex.MainMenu; current < (int)ScreenIndex.MaxScreens; current++)
         {
-            screen_objects[current].SetActive(current == (int)new_index);
+            screenObjects[current].SetActive(current == (int)new_index);
         }
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        SwitchScreen(ScreenIndex.MainMenu, true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (keyStateManager.CheckKeyState(KeyCode.Escape, key_query_mode.kq_singlepress))
+        {
+            if (currentScreen == ScreenIndex.Overlay)
+                SwitchScreen(ScreenIndex.Pause, true);
+            else if (currentScreen == ScreenIndex.Pause)
+                SwitchScreen(ScreenIndex.Overlay, false);
+        }
+
+
+
     }
 }
